@@ -98,6 +98,73 @@ CREATE TABLE IF NOT EXISTS address (
 ) ENGINE=InnoDB AUTO_INCREMENT=606 DEFAULT CHARSET=utf8;
 
 
+#6a 
+-- Use JOIN to display the first and last names, as well as the address, of each staff member. 
+-- Use the tables staff and address:
+SELECT staff.first_name , staff.last_name , address.address 
+FROM staff 
+JOIN address 
+ON staff.address_id = address.address_id; 
+
+
+#6b. 
+-- Use JOIN to display the total amount rung up by each staff member in August of 2005. 
+-- Use tables staff and payment.
+SELECT staff.first_name , staff.last_name, SUM(payment.amount)
+FROM staff
+JOIN payment
+ON staff.staff_id = payment.staff_id
+WHERE payment.payment_date  LIKE '2005-08%'
+GROUP BY staff.staff_id; 
+
+
+#6c. 
+-- List each film and the number of actors who are listed for that film. 
+-- Use tables film_actor and film. Use inner join.
+SELECT film.title, COUNT(film_actor.actor_id)
+FROM film 
+INNER JOIN film_actor 
+ON film.film_id = film_actor.film_id
+GROUP BY film.title; 
+
+#6d. 
+-- How many copies of the film Hunchback Impossible exist in the inventory system?
+SELECT F.title, COUNT(I.inventory_id) 
+FROM inventory I
+INNER JOIN film F
+ON F.film_id  = I.film_id
+WHERE F.title = 'Hunchback Impossible';
+
+
+#6e
+-- Using the tables payment and customer and the JOIN command, 
+-- list the total paid by each customer. List the customers alphabetically by last name:
+SELECT C.first_name, C.last_name, SUM(P.amount) 
+FROM customer C
+INNER JOIN payment P
+ON P.customer_id = C.customer_id
+GROUP BY P.customer_id
+ORDER BY last_name; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
