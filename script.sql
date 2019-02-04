@@ -217,6 +217,18 @@ FROM film F
 GROUP BY F.title
 ORDER BY `Total_Rental_Count` DESC; 
     
+#7h. 
+-- List the top five genres in gross revenue in descending order. 
+-- (Hint: you may need to use the following tables: category, film_category, inventory, payment, and rental.)
+SELECT Cat.name, SUM(P.amount) as 'Gross_Revenue'
+FROM category Cat 
+    JOIN film_category Fi_Cat ON Cat.category_id = Fi_Cat.category_id
+    JOIN inventory I ON Fi_Cat.film_id = I.film_id
+    JOIN rental R ON I.inventory_id = R.inventory_id
+    JOIN payment P ON R.rental_id = P.rental_id
+GROUP BY Cat.name
+ORDER BY `Gross_Revenue` DESC
+LIMIT 5;
 
 
 
