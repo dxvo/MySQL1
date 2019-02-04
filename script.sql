@@ -155,7 +155,7 @@ SELECT film.title
 FROM film 
 WHERE  ((title LIKE 'K%' ) OR (title LIKE 'Q%' )) AND language_id IN 
 (
-	SELECT language_id
+    SELECT language_id
     FROM language
     WHERE name = 'English'
 ); 
@@ -167,13 +167,13 @@ SELECT first_name, last_name
 FROM actor 
 WHERE actor_id IN 
 (
-	SELECT actor_id
+    SELECT actor_id
     FROM film_actor
     WHERE film_id IN 
     (
-		SELECT film_id
-		FROM film
-		WHERE title = 'Alone Trip'));
+        SELECT film_id
+        FROM film
+        WHERE title = 'Alone Trip'));
 
 
 #7c. 
@@ -184,16 +184,16 @@ SELECT CONCAT(first_name, '  ' , last_name) AS 'Name', email
 FROM customer
 WHERE address_id IN 
 (
-		SELECT address_id
+        SELECT address_id
         FROM address
         WHERE city_id IN
         (
-			SELECT city_id
+            SELECT city_id
             FROM city
             WHERE country_id IN 
-		
+        
             (
-				SELECT country_id
+                SELECT country_id
                 FROM country
                 WHERE country = 'Canada'))); 
 
@@ -208,27 +208,15 @@ INNER JOIN film_list  -- film list is one of VIEWS
 ON film.title = film_list.title
 WHERE film_list.category = 'Family'; 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#7e. 
+-- Display the most frequently rented movies in descending order.
+SELECT F.title, COUNT(rental_id) AS 'Total_Rental_Count'
+FROM film F
+    JOIN inventory I ON F.film_id = I.film_id
+    JOIN rental R ON I.inventory_id = R.inventory_id
+GROUP BY F.title
+ORDER BY `Total_Rental_Count` DESC; 
+    
 
 
 
