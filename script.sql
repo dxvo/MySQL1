@@ -176,6 +176,63 @@ WHERE actor_id IN
 		WHERE title = 'Alone Trip'));
 
 
+#7c. 
+-- You want to run an email marketing campaign in Canada, for which you will need the names and email addresses of all Canadian customers. 
+-- Use joins to retrieve this information.
+
+SELECT CONCAT(first_name, '  ' , last_name) AS 'Name', email
+FROM customer
+WHERE address_id IN 
+(
+		SELECT address_id
+        FROM address
+        WHERE city_id IN
+        (
+			SELECT city_id
+            FROM city
+            WHERE country_id IN 
+		
+            (
+				SELECT country_id
+                FROM country
+                WHERE country = 'Canada'))); 
+
+
+
+#7d
+-- Sales have been lagging among young families, and you wish to target all family movies for a promotion. 
+-- Identify all movies categorized as family films. 
+SELECT  film.title
+FROM film 
+INNER JOIN film_list  -- film list is one of VIEWS 
+ON film.title = film_list.title
+WHERE film_list.category = 'Family'; 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
