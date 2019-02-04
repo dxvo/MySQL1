@@ -231,7 +231,30 @@ ORDER BY `Gross_Revenue` DESC
 LIMIT 5;
 
 
+#8a. 
+-- In your new role as an executive, you would like to have an easy way of viewing the Top five genres by gross revenue. 
+-- Use the solution from the problem above to create a view. If you haven't solved 7h, you can substitute another query to create a view.
 
+DROP VIEW IF EXISTS Top_Five_Genres;
+CREATE VIEW Top_Five_Genres AS
+
+SELECT Cat.name, SUM(P.amount) as 'Gross_Revenue'
+FROM category Cat 
+    JOIN film_category Fi_Cat ON Cat.category_id = Fi_Cat.category_id
+    JOIN inventory I ON Fi_Cat.film_id = I.film_id
+    JOIN rental R ON I.inventory_id = R.inventory_id
+    JOIN payment P ON R.rental_id = P.rental_id
+GROUP BY Cat.name
+ORDER BY `Gross_Revenue` DESC
+LIMIT 5;
+
+#8b. 
+-- How would you display the view that you created in 8a?
+SELECT * FROM Top_Five_Genres; 
+
+#8c. 
+-- You find that you no longer need the view top_five_genres. Write a query to delete it.
+DROP VIEW Top_Five_Genres; 
 
 
 
